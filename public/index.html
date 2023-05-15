@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id" translate="no">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <title>Sales App</title>
+</head>
+
+<body>
+    <div class="recording">
+        <button id="play_recording">Mulai rekaman</button>
+        <button id="reset_transkrip">Reset Transkrip</button>
+    </div>
+    <div class="user">
+        <div class="information">
+            <div style="display: flex; flex-direction:column;">
+                <span><strong>Transkrip :</strong></span>
+                <span id="output" style="margin-top: 10px;"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
