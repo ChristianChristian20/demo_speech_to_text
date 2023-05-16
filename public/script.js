@@ -5,12 +5,17 @@ const audioContext = new AudioContext();
 let mediaRecorder = null;
 const recognition = new webkitSpeechRecognition();
 let transcriptText = '';
+let audioURL = null
 
 $(document).ready(function () {
     $('#play_recording').on('click', function (e) {
         let textButton = $('#play_recording').text();
 
         if (textButton === 'Mulai rekaman') {
+            // Set audio to audio html tag
+            $('#audio_player')[0].src = '';
+            $('#container_audio_player').slideUp('slow');
+
             $('#play_recording').text('Stop rekaman');
             getUserInput();
         }
@@ -29,9 +34,11 @@ $(document).ready(function () {
 });
 
 function getUserInput() {
+    // Loading
+    $('#output').html(`<small><i>Loading...</i></small>`)
+
     // set transcript to null
     transcriptText = '';
-    $('#output').text('')
 
     recognition.continuous = true;
     recognition.interimResults = false;
@@ -44,6 +51,9 @@ function getUserInput() {
     // Get the audio stream from the user's microphone
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then((stream) => {
+            // Loading
+            $('#output').html(`<small><i>Mendengarkan...</i></small>`)
+
             // Create a new MediaRecorder object and pass in the audio stream
             mediaRecorder = new MediaRecorder(stream);
 
@@ -61,7 +71,11 @@ function getUserInput() {
                 const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
 
                 // Convert the blob into a URL that can be used as a source for an audio element
-                const audioURL = URL.createObjectURL(blob);
+                audioURL = URL.createObjectURL(blob);
+
+                // Set audio to audio html tag
+                $('#audio_player')[0].src = audioURL;
+                $('#container_audio_player').slideDown('slow');
             };
         })
         .catch((error) => {
